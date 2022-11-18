@@ -1,0 +1,2382 @@
+{
+  "purchaseSkipDefault": {
+    "initialValues": [
+      {
+        "fieldName": "loanPurpose",
+        "fieldValue": "Purchase"
+      }
+    ],
+    "screens": [
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [
+          {
+            "default": "loan-purpose"
+          },
+          {}
+        ],
+        "to": {
+          "property-type": []
+        }
+      },
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "flowPercent": 14,
+        "from": ["property-location"],
+        "to": {
+          "credit-score": []
+        }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 21,
+        "from": ["property-type"],
+        "to": {
+          "purchase-situation": []
+        }
+      },
+      {
+        "name": "purchase-situation",
+        "stepName": "PurchaseStatus",
+        "flowPercent": 28,
+        "from": ["credit-score"],
+        "to": {
+          "property-usage": []
+        }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 35,
+        "from": ["purchase-situation"],
+        "to": {
+          "purchase-price": []
+        }
+      },
+      {
+        "name": "purchase-price",
+        "flowPercent": 42,
+        "stepName": "PurchasePrice",
+        "from": ["property-usage"],
+        "to": {
+          "employment-status": []
+        }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 49,
+        "from": ["purchase-price"],
+        "to": {
+          "military-serve": []
+        }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 54,
+        "from": ["employment-status"],
+        "to": {
+          "bankruptcy-foreclosure": []
+        }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 63,
+        "skip": true,
+        "from": ["military-serve"],
+        "to": {
+          "borrower-name": []
+        }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 70,
+        "skip": true,
+        "from": ["bankruptcy-foreclosure"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerFirstname",
+              "fieldValue": null
+            },
+            {
+              "fieldName": "borrowerLastname",
+              "fieldValue": null
+            }
+          ],
+          "borrower-email": []
+        }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 77,
+        "skip": true,
+        "from": ["borrower-name"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerEmail",
+              "fieldValue": null
+            }
+          ],
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 84,
+        "skip": true,
+        "from": ["borrower-email"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerPhone",
+              "fieldValue": null
+            }
+          ],
+          "timeline-to-apply": []
+        }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 91,
+        "from": ["borrower-phone"],
+        "to": {
+          "submit": []
+        }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": [
+          "borrower-name",
+          "borrower-email",
+          "borrower-phone",
+          "timeline-to-apply"
+        ],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "refinanceSkipDefault": {
+    "initialValues": [
+      {
+        "fieldName": "loanPurpose",
+        "fieldValue": "Refinance"
+      }
+    ],
+    "screens": [
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [
+          {
+            "default": "loan-purpose"
+          },
+          {}
+        ],
+        "to": {
+          "property-type": []
+        }
+      },
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "flowPercent": 14,
+        "from": ["property-location"],
+        "to": {
+          "credit-score": []
+        }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 21,
+        "from": ["property-type"],
+        "to": {
+          "property-value": []
+        }
+      },
+      {
+        "name": "property-value",
+        "stepName": "PropertyValue",
+        "flowPercent": 28,
+        "from": ["credit-score"],
+        "to": {
+          "loan-balance": []
+        }
+      },
+      {
+        "name": "loan-balance",
+        "stepName": "LoanBalance",
+        "flowPercent": 35,
+        "from": ["property-value"],
+        "to": {
+          "property-usage": []
+        }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 42,
+        "from": ["loan-balance"],
+        "to": {
+          "cash-out": []
+        }
+      },
+      {
+        "name": "cash-out",
+        "stepName": "CashOut",
+        "flowPercent": 49,
+        "from": ["property-usage"],
+        "to": {
+          "employment-status": []
+        }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 56,
+        "from": ["cash-out"],
+        "to": {
+          "military-serve": []
+        }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 63,
+        "from": ["cash-out"],
+        "to": {
+          "bankruptcy-foreclosure": []
+        }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 70,
+        "from": ["military-serve"],
+        "to": {
+          "borrower-name": []
+        }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 77,
+        "skip": true,
+        "from": ["bankruptcy-foreclosure"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerFirstname",
+              "fieldValue": null
+            },
+            {
+              "fieldName": "borrowerLastname",
+              "fieldValue": null
+            }
+          ],
+          "borrower-email": []
+        }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 84,
+        "skip": true,
+        "from": ["borrower-name"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerEmail",
+              "fieldValue": null
+            }
+          ],
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 91,
+        "skip": true,
+        "from": ["borrower-email"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerPhone",
+              "fieldValue": null
+            }
+          ],
+          "timeline-to-apply": []
+        }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 98,
+        "from": ["borrower-phone"],
+        "to": {
+          "submit": []
+        }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": [
+          "borrower-name",
+          "borrower-email",
+          "borrower-phone",
+          "timeline-to-apply"
+        ],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "purchaseStartPurposeSkip": {
+    "initialValues": [{ "fieldName": "loanPurpose", "fieldValue": "Purchase" }],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 14,
+        "from": ["property-type"],
+        "to": { "purchase-situation": [] }
+      },
+      {
+        "name": "purchase-situation",
+        "stepName": "PurchaseStatus",
+        "flowPercent": 21,
+        "from": ["property-usage"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 28,
+        "from": ["purchase-situation"],
+        "to": { "purchase-price": [] }
+      },
+      {
+        "name": "purchase-price",
+        "flowPercent": 35,
+        "stepName": "PurchasePrice",
+        "from": ["credit-score"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 42,
+        "from": ["purchase-price"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 49,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 56,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 63,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 70,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 77,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 84,
+        "skip": true,
+        "from": ["property-location"],
+        "to": {
+          "submit": [{ "fieldName": "borrowerEmail", "fieldValue": null }],
+          "borrower-name": []
+        }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 91,
+        "skip": true,
+        "from": ["borrower-email"],
+        "to": {
+          "submit": [
+            { "fieldName": "borrowerFirstname", "fieldValue": null },
+            { "fieldName": "borrowerLastname", "fieldValue": null }
+          ],
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 98,
+        "skip": true,
+        "from": ["borrower-name"],
+        "to": { "submit": [] }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name", "borrower-email", "borrower-phone"],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "refinanceStartPurposeSkip": {
+    "initialValues": [
+      { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+    ],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 6,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 12,
+        "from": ["property-type"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 18,
+        "from": ["property-usage"],
+        "to": { "property-value": [] }
+      },
+      {
+        "name": "property-value",
+        "stepName": "PropertyValue",
+        "flowPercent": 24,
+        "from": ["credit-score"],
+        "to": { "loan-balance": [] }
+      },
+      {
+        "name": "loan-balance",
+        "stepName": "LoanBalance",
+        "flowPercent": 30,
+        "from": ["property-value"],
+        "to": { "cash-out": [] }
+      },
+      {
+        "name": "cash-out",
+        "stepName": "CashOut",
+        "flowPercent": 36,
+        "from": ["loan-balance"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 42,
+        "from": ["cash-out"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 48,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 54,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 60,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 66,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 72,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 78,
+        "skip": true,
+        "from": ["property-location"],
+        "to": {
+          "submit": [{ "fieldName": "borrowerEmail", "fieldValue": null }],
+          "borrower-name": []
+        }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 84,
+        "skip": true,
+        "from": ["borrower-email"],
+        "to": {
+          "submit": [
+            { "fieldName": "borrowerFirstname", "fieldValue": null },
+            { "fieldName": "borrowerLastname", "fieldValue": null }
+          ],
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 90,
+        "skip": true,
+        "from": ["borrower-name"],
+        "to": { "submit": [] }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name", "borrower-email", "borrower-phone"],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "purchaseStartPurposeNoSkip": {
+    "initialValues": [{ "fieldName": "loanPurpose", "fieldValue": "Purchase" }],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 14,
+        "from": ["property-type"],
+        "to": { "purchase-situation": [] }
+      },
+      {
+        "name": "purchase-situation",
+        "stepName": "PurchaseStatus",
+        "flowPercent": 21,
+        "from": ["property-usage"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 28,
+        "from": ["purchase-situation"],
+        "to": { "purchase-price": [] }
+      },
+      {
+        "name": "purchase-price",
+        "flowPercent": 35,
+        "stepName": "PurchasePrice",
+        "from": ["credit-score"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 42,
+        "from": ["purchase-price"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 49,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 56,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 63,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 70,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 77,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 84,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 91,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 98,
+        "from": ["borrower-name"],
+        "to": { "submit": [] }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-phone"],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "refinanceStartPurposeNoSkip": {
+    "initialValues": [
+      { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+    ],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 6,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 12,
+        "from": ["property-type"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 18,
+        "from": ["property-usage"],
+        "to": { "property-value": [] }
+      },
+      {
+        "name": "property-value",
+        "stepName": "PropertyValue",
+        "flowPercent": 24,
+        "from": ["credit-score"],
+        "to": { "loan-balance": [] }
+      },
+      {
+        "name": "loan-balance",
+        "stepName": "LoanBalance",
+        "flowPercent": 30,
+        "from": ["property-value"],
+        "to": { "cash-out": [] }
+      },
+      {
+        "name": "cash-out",
+        "stepName": "CashOut",
+        "flowPercent": 36,
+        "from": ["loan-balance"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 42,
+        "from": ["cash-out"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 48,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 54,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 60,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 66,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 72,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 78,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 84,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 90,
+        "from": ["borrower-name"],
+        "to": { "submit": [] }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-phone"],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "startRate": {
+    "initialValues": [
+      {
+        "fieldName": "loanPurpose",
+        "fieldValue": "Purchase"
+      },
+      {
+        "fieldName": "borrowerCreditScore",
+        "fieldValue": "760 or higher"
+      },
+      {
+        "fieldName": "borrowerEmploymentStatus",
+        "fieldValue": "W2"
+      },
+      {
+        "fieldName": "borrowerHasBKOrForeClosure",
+        "fieldValue": false
+      },
+      {
+        "fieldName": "propertyDownPaymentRate",
+        "fieldValue": 0
+      },
+      {
+        "fieldName": "propertyDownPaymentAmount",
+        "fieldValue": null
+      }
+    ],
+    "screens": [
+      {
+        "name": "loan-info",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "to": {
+          "property-type": []
+        },
+        "widgets": [
+          {
+            "name": "trusted-by",
+            "data": {
+              "content": "trusted_by_content"
+            }
+          },
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      },
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "flowPercent": 13,
+        "from": ["loan-info"],
+        "to": {
+          "property-usage": []
+        }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 26,
+        "from": ["property-type"],
+        "to": {
+          "military-serve": []
+        }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 39,
+        "from": ["property-usage"],
+        "to": {
+          "borrower-name": []
+        }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 52,
+        "skip": true,
+        "from": ["military-serve"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerFirstname",
+              "fieldValue": null
+            },
+            {
+              "fieldName": "borrowerLastname",
+              "fieldValue": null
+            }
+          ],
+          "borrower-email": []
+        }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 65,
+        "skip": true,
+        "from": ["borrower-name"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerEmail",
+              "fieldValue": null
+            }
+          ],
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "flowPercent": 78,
+        "skip": true,
+        "from": ["borrower-email"],
+        "to": {
+          "submit": [
+            {
+              "fieldName": "borrowerPhone",
+              "fieldValue": null
+            }
+          ],
+          "timeline-to-apply": []
+        }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 91,
+        "from": ["borrower-phone"],
+        "to": {
+          "submit": []
+        }
+      },
+      {
+        "name": "submit",
+        "stepName": "Submit",
+        "position": "End",
+        "flowPercent": 99,
+        "from": [
+          "borrower-name",
+          "borrower-email",
+          "borrower-phone",
+          "timeline-to-apply"
+        ],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "pricingAppUrl",
+          "hasQueryParam": true
+        }
+      }
+    ]
+  },
+
+  "startChoice": {
+    "screens": [
+      {
+        "name": "choices",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "to": {
+          "loan-purpose": []
+        },
+        "widgets": [
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      },
+      {
+        "name": "loan-purpose",
+        "stepName": "LoanPurpose",
+        "flowPercent": 1,
+        "from": ["choices"],
+        "toWorkflow": {
+          "purchaseSkipDefault": [
+            {
+              "fieldName": "loanPurpose",
+              "fieldValue": "Purchase"
+            }
+          ],
+          "refinanceSkipDefault": [
+            {
+              "fieldName": "loanPurpose",
+              "fieldValue": "Refinance"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "startPurpose": {
+    "screens": [
+      {
+        "name": "loan-purpose",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "toWorkflow": {
+          "purchaseStartPurposeSkip": [
+            { "fieldName": "loanPurpose", "fieldValue": "Purchase" }
+          ],
+          "refinanceStartPurposeSkip": [
+            { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+          ]
+        },
+        "widgets": [
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "startPurposeNoSkip": {
+    "screens": [
+      {
+        "name": "loan-purpose",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "toWorkflow": {
+          "purchaseStartPurposeNoSkip": [
+            { "fieldName": "loanPurpose", "fieldValue": "Purchase" }
+          ],
+          "refinanceStartPurposeNoSkip": [
+            { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+          ]
+        },
+        "widgets": [
+          {
+            "name": "trusted-by",
+            "data": {
+              "content": "trusted_by_content"
+            }
+          },
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "purchaseGetApproved": {
+    "initialValues": [{ "fieldName": "loanPurpose", "fieldValue": "Purchase" }],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 14,
+        "from": ["property-type"],
+        "to": { "purchase-situation": [] }
+      },
+      {
+        "name": "purchase-situation",
+        "stepName": "PurchaseStatus",
+        "flowPercent": 21,
+        "from": ["property-usage"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 28,
+        "from": ["purchase-situation"],
+        "to": { "purchase-price": [] }
+      },
+      {
+        "name": "purchase-price",
+        "flowPercent": 35,
+        "stepName": "PurchasePrice",
+        "from": ["credit-score"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 42,
+        "from": ["purchase-price"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 49,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 56,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 63,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 70,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 77,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 84,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 91,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name"],
+        "redirectLink": {
+          "source": "Cookie",
+          "variableName": "thankyouUrl",
+          "defaultUrl": "{homeUrlDefaultValue}/thank-you",
+          "hasQueryParam": false
+        }
+      }
+    ]
+  },
+
+  "refinanceGetApproved": {
+    "initialValues": [
+      { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+    ],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 7,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 14,
+        "from": ["property-type"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 21,
+        "from": ["property-usage"],
+        "to": { "property-value": [] }
+      },
+      {
+        "name": "property-value",
+        "stepName": "PropertyValue",
+        "flowPercent": 28,
+        "from": ["credit-score"],
+        "to": { "loan-balance": [] }
+      },
+      {
+        "name": "loan-balance",
+        "stepName": "LoanBalance",
+        "flowPercent": 35,
+        "from": ["property-value"],
+        "to": { "cash-out": [] }
+      },
+      {
+        "name": "cash-out",
+        "stepName": "CashOut",
+        "flowPercent": 42,
+        "from": ["loan-balance"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 49,
+        "from": ["cash-out"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 56,
+        "from": ["employment-status"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 63,
+        "from": ["military-serve"],
+        "to": { "goal-type": [] }
+      },
+      {
+        "name": "goal-type",
+        "stepName": "GoalType",
+        "flowPercent": 70,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "timeline-to-apply": [] }
+      },
+      {
+        "name": "timeline-to-apply",
+        "stepName": "TimelineToApply",
+        "flowPercent": 77,
+        "from": ["goal-type"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 84,
+        "from": ["timeline-to-apply"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 91,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 98,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name"],
+        "redirectLink": {
+          "source": "Cookie",
+          "variableName": "thankyouUrl",
+          "defaultUrl": "{homeUrlDefaultValue}/thank-you",
+          "hasQueryParam": false
+        }
+      }
+    ]
+  },
+
+  "getApproved": {
+    "screens": [
+      {
+        "name": "loan-purpose",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "toWorkflow": {
+          "purchaseGetApproved": [
+            { "fieldName": "loanPurpose", "fieldValue": "Purchase" }
+          ],
+          "refinanceGetApproved": [
+            { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+          ]
+        },
+        "widgets": [
+          {
+            "name": "trusted-by",
+            "data": {
+              "content": "trusted_by_content"
+            }
+          },
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "purchaseVaPurpose": {
+    "initialValues": [{ "fieldName": "loanPurpose", "fieldValue": "Purchase" }],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 8,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 16,
+        "from": ["property-type"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 24,
+        "from": ["property-usage"],
+        "to": { "purchase-situation": [] }
+      },
+      {
+        "name": "purchase-situation",
+        "stepName": "PurchaseStatus",
+        "flowPercent": 32,
+        "from": ["military-serve"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 40,
+        "from": ["purchase-situation"],
+        "to": { "purchase-price": [] }
+      },
+      {
+        "name": "purchase-price",
+        "flowPercent": 48,
+        "stepName": "PurchasePrice",
+        "from": ["credit-score"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 56,
+        "from": ["purchase-price"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 64,
+        "from": ["employment-status"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 72,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 80,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 88,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name"],
+        "redirectLink": {
+          "source": "Cookie",
+          "variableName": "thankyouUrl",
+          "defaultUrl": "{homeUrlDefaultValue}/thank-you",
+          "hasQueryParam": false
+        }
+      }
+    ]
+  },
+
+  "refinanceVaPurpose": {
+    "initialValues": [
+      { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+    ],
+    "screens": [
+      {
+        "name": "property-type",
+        "stepName": "PropertyType",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 8,
+        "fromWorkflow": [{ "default": "loan-purpose" }, {}],
+        "to": { "property-usage": [] }
+      },
+      {
+        "name": "property-usage",
+        "stepName": "PropertyUse",
+        "flowPercent": 16,
+        "from": ["property-type"],
+        "to": { "military-serve": [] }
+      },
+      {
+        "name": "military-serve",
+        "stepName": "MilitaryService",
+        "flowPercent": 24,
+        "from": ["property-usage"],
+        "to": { "credit-score": [] }
+      },
+      {
+        "name": "credit-score",
+        "stepName": "CreditScore",
+        "flowPercent": 32,
+        "from": ["military-serve"],
+        "to": { "property-value": [] }
+      },
+      {
+        "name": "property-value",
+        "stepName": "PropertyValue",
+        "flowPercent": 40,
+        "from": ["credit-score"],
+        "to": { "loan-balance": [] }
+      },
+      {
+        "name": "loan-balance",
+        "stepName": "LoanBalance",
+        "flowPercent": 48,
+        "from": ["property-value"],
+        "to": { "cash-out": [] }
+      },
+      {
+        "name": "cash-out",
+        "stepName": "CashOut",
+        "flowPercent": 56,
+        "from": ["loan-balance"],
+        "to": { "employment-status": [] }
+      },
+      {
+        "name": "employment-status",
+        "stepName": "EmploymentStatus",
+        "flowPercent": 64,
+        "from": ["cash-out"],
+        "to": { "bankruptcy-foreclosure": [] }
+      },
+      {
+        "name": "bankruptcy-foreclosure",
+        "stepName": "FinancialStatus",
+        "flowPercent": 72,
+        "from": ["employment-status"],
+        "to": { "property-location": [] }
+      },
+      {
+        "name": "property-location",
+        "stepName": "PropertyLocation",
+        "flowPercent": 80,
+        "from": ["bankruptcy-foreclosure"],
+        "to": { "borrower-email": [] }
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 88,
+        "from": ["property-location"],
+        "to": { "borrower-name": [] }
+      },
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "flowPercent": 96,
+        "from": ["borrower-email"],
+        "to": { "borrower-phone": [] }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-name"],
+        "redirectLink": {
+          "source": "Cookie",
+          "variableName": "thankyouUrl",
+          "defaultUrl": "{homeUrlDefaultValue}/thank-you",
+          "hasQueryParam": false
+        }
+      }
+    ]
+  },
+
+  "vaPurpose": {
+    "screens": [
+      {
+        "name": "loan-purpose",
+        "stepName": "LandingPage",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "toWorkflow": {
+          "purchaseVaPurpose": [
+            { "fieldName": "loanPurpose", "fieldValue": "Purchase" }
+          ],
+          "refinanceVaPurpose": [
+            { "fieldName": "loanPurpose", "fieldValue": "Refinance" }
+          ]
+        },
+        "widgets": [
+          {
+            "name": "trusted-by",
+            "data": {
+              "content": "trusted_by_content"
+            }
+          },
+          {
+            "name": "legal-disclaimer",
+            "data": {
+              "disclaimerDescr": "legal_disclaimer_description"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "creditKarma": {
+    "initialValues": [],
+    "screens": [
+      {
+        "name": "borrower-name",
+        "stepName": "Name",
+        "initialScreen": true,
+        "position": "Start",
+        "flowPercent": 0,
+        "fromWorkflow": [],
+        "to": {
+          "borrower-email": []
+        },
+        "widgets": [
+          {
+            "name": "trusted-by",
+            "data": {
+              "content": "trusted_by_content"
+            }
+          },
+          {
+            "name": "social-proof",
+            "data": {}
+          },
+          {
+            "name": "expansion-panel-block",
+            "data": {
+              "title": "expansion_panel_title",
+              "expansionBlockItem1": "expansion_block_item1",
+              "expansionBlockItem2": "expansion_block_item2",
+              "expansionBlockItem3": "expansion_block_item3",
+              "expansionBlockItem4": "expansion_block_item4",
+              "backgroundColor": "expansion_panel_background_color"
+            }
+          },
+          {
+            "name": "reviews-block",
+            "data": {
+              "topTitle": "reviews_block_top_title",
+              "bottomTitle": "reviews_block_bottom_title",
+              "backgroundColor": "reviews_block_background_color",
+              "backgroundLogo": "reviews_block_background_logo",
+              "leftPersonalReview": "reviews_block_left_personal_review",
+              "rightPersonalReview": "reviews_block_right_personal_review",
+              "leftThirdPartyReview": "reviews_block_left_third_party_review",
+              "leftAction": "reviews_block_left_action",
+              "middleThirdPartyReview": "reviews_block_middle_third_party_review",
+              "middleAction": "reviews_block_middle_action",
+              "rightThirdPartyReview": "reviews_block_right_third_party_review",
+              "rightAction": "reviews_block_right_action"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color",
+              "action": "action_block_action"
+            }
+          },
+          {
+            "name": "flow-block",
+            "data": {
+              "title": "flow_block_title",
+              "flow1": "flow_block_flow1",
+              "flow2": "flow_block_flow2",
+              "flow3": "flow_block_flow3",
+              "flow4": "flow_block_flow4",
+              "backgroundColor": "flow_block_background_color",
+              "illustrateScreenImage": "flow_block_illustrate_screen_image"
+            }
+          },
+          {
+            "name": "options-block",
+            "data": {
+              "title": "options_block_title",
+              "card1": "options_block_card1",
+              "card1Action": "options_block_card1_action",
+              "card2": "options_block_card2",
+              "card2Action": "options_block_card2_action",
+              "card3": "options_block_card3",
+              "card3Action": "options_block_card3_action",
+              "backgroundColor": "options_block_background_color"
+            }
+          },
+          {
+            "name": "benefits-block",
+            "data": {
+              "title": "benefits_title",
+              "leftSubtitle": "benefits_left_subtitle",
+              "rightSubtitle": "benefits_right_subtitle",
+              "leftColumn": "benefits_left_column",
+              "rightColumn": "benefits_right_column",
+              "action": "benefits_action",
+              "backgroundColor": "benefits_background_color",
+              "backgroundLogo": "benefits_background_logo"
+            }
+          },
+          {
+            "name": "features-block",
+            "data": {
+              "title": "features_block_title",
+              "row1": "features_block_row1",
+              "row2": "features_block_row2",
+              "row3": "features_block_row3",
+              "row4": "features_block_row4",
+              "row5": "features_block_row5",
+              "backgroundColor": "features_block_background_color"
+            }
+          },
+          {
+            "name": "action-block",
+            "data": {
+              "title": "action_block_title",
+              "backgroundColor": "action_block_background_color_gradient",
+              "action": "action_block_action"
+            }
+          }
+        ]
+      },
+      {
+        "name": "borrower-email",
+        "stepName": "Email",
+        "flowPercent": 50,
+        "from": ["borrower-name"],
+        "to": {
+          "borrower-phone": []
+        }
+      },
+      {
+        "name": "borrower-phone",
+        "stepName": "Phone",
+        "position": "End",
+        "flowPercent": 99,
+        "from": ["borrower-email"],
+        "redirectLink": {
+          "source": "Environment",
+          "variableName": "homeUrlDefaultValue",
+          "hasQueryParam": false
+        }
+      }
+    ]
+  }
+}

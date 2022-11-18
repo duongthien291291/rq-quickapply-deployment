@@ -1,0 +1,17 @@
+.page-title-wrapper {
+  font-size: 56px;
+}
+
+trusted-by .trusted-by {
+  margin-top: 70px;
+}
+
+trusted-by .trusted-by .trusted-by-item {
+  font-size: var(--font-size-16);
+  font-weight: bold;
+  padding: 15px 55px;
+}
+
+.social-proof {
+  margin-top: 120px;
+}

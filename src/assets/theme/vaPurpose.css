@@ -1,0 +1,80 @@
+loan-purpose-page .app-body {
+  background-image: url(/assets/img/bg_vapurpose.jpg);
+  background-repeat: no-repeat;
+  background-position-x: -215px;
+  background-position-y: 120px;
+}
+loan-purpose-page .page-loan-purpose > .container {
+  width: 100%;
+}
+loan-purpose-page .page-loan-purpose > .container #app-banner > .row > .col-12 {
+  width: 100%;
+  margin: 0;
+}
+loan-purpose-page .page-title-wrapper {
+  margin-top: 0;
+}
+loan-purpose-page .page-title-wrapper .subheading-2 {
+  font-size: var(--font-size-20);
+  line-height: 24px;
+}
+@media (max-width: 1640px) {
+  loan-purpose-page .app-body {
+    background-size: 80%;
+    background-position-x: -70%;
+    background-position-y: 200px;
+  }
+}
+@media (max-width: 1440px) {
+  loan-purpose-page .app-body {
+    background-position-y: 230px;
+  }
+}
+@media (max-width: 1280px) {
+  loan-purpose-page .app-body {
+    background-position-y: 250px;
+  }
+}
+@media (max-width: 992px) {
+  loan-purpose-page .app-body {
+    background-position-y: 350px;
+  }
+  loan-purpose-page .page-title-wrapper .heading {
+    max-width: 600px;
+    margin: auto;
+  }
+}
+@media (max-width: 720px) {
+  loan-purpose-page .app-body {
+    background-size: 600px 400px;
+    background-position: -80px 350px;
+  }
+  loan-purpose-page .page-title-wrapper .heading {
+    max-width: 320px;
+  }
+  loan-purpose-page .page-title-wrapper .subheading-2 {
+    font-size: 18px;
+    line-height: 21px;
+  }
+}
+@media (max-width: 544px) {
+  loan-purpose-page .app-body {
+    background-size: 465px 310px;
+    background-position: -60px 410px;
+  }
+  loan-purpose-page .trusted-by {
+    margin-top: 20px;
+  }
+  loan-purpose-page .social-proof {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 414px) {
+  loan-purpose-page .app-body {
+    background-position: -100px 405px;
+  }
+}
+loan-purpose-page .row .legal-description {
+  margin: 0.5rem 2% 70px 0;
+  background: var(--white-color);
+}
